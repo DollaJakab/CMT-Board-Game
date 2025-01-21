@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect } from "react";
 import { useStore } from "@/lib/store";
 import Cell from "./Cell";
 
