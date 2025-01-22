@@ -1,12 +1,18 @@
 export enum CellTypes {
   "C",
   "M",
-  "D",
+  "T",
+}
+
+export interface CellProps {
+    color: string;
+    value: string;
 }
 
 export interface Store {
-    board: string[][],
+    board: CellProps[][],
     currentLetter: string,
     updateCurrentLetter: (currentLetter: string) => void,
-    updateBoard: (board: string[][]) => void
+    updateBoard: (i: number, j: number, currentLetter: string) => void
+    updateBoardColors: (i: number, j: number) => void
 }

@@ -1,33 +1,35 @@
 "use client";
 import React from "react";
 import { useStore } from "@/lib/store";
-import { CellTypes } from "@/lib/types";
+import { CellProps, CellTypes } from "@/lib/types";
+import { linesCalculator } from "@/lib/helpers";
 
-const Cell = ({ value, i, j }: { value: string; i: number; j: number }) => {
+const Cell = ({ cell, i, j }: { cell: CellProps; i: number; j: number }) => {
+  console.log(cell);
   const updateBoard = useStore((state) => state.updateBoard);
   const board = useStore((state) => state.board);
+  const updateBoardColors = useStore((state) => state.updateBoardColors);
   const currentLetter = useStore((state) => state.currentLetter);
   const updateCurrentLetter = useStore((state) => state.updateCurrentLetter);
   const currentLetterIndex = Object.keys(CellTypes).indexOf(currentLetter);
   const setCellValue = () => {
-    const newBoard = board.map((row, rowIndex) =>
-      row.map((cell, cellIndex) => {
-        if (rowIndex === i && cellIndex === j) {
-          return currentLetter;
-        }
-        return cell;
-      }),
-    );
-    updateBoard(newBoard);
+    updateBoard(i, j, currentLetter);
     updateCurrentLetter(CellTypes[(currentLetterIndex + 1) % 3]);
+    const lines = linesCalculator(board);
+    lines.forEach((line) => {
+      line.forEach(([row, col]) => {
+        updateBoardColors(row, col);
+      });
+    });
   };
   return (
     <button
-      disabled={value !== ""}
-      className="bg-gray-200 h-20 w-20 text-black"
+      disabled={cell?.value !== ""}
+      className={"bg-gray-200 h-20 w-20"}
+      style={{ color: cell?.color }}
       onClick={setCellValue}
     >
-      {value}
+      {cell?.value}
     </button>
   );
 };
