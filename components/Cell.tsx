@@ -12,6 +12,7 @@ const Cell = ({ cell, i, j }: { cell: CellProps; i: number; j: number }) => {
   const updateCurrentLetter = useStore((state) => state.updateCurrentLetter);
   const currentLetterIndex = Object.keys(CellTypes).indexOf(currentLetter);
   const updateLines = useStore((state) => state.updateLines);
+  const updateFilledCells = useStore((state) => state.updateFilledCells);
   const setCellValue = () => {
     updateBoard(i, j, currentLetter);
     updateCurrentLetter(CellTypes[(currentLetterIndex + 1) % 3]);
@@ -22,6 +23,7 @@ const Cell = ({ cell, i, j }: { cell: CellProps; i: number; j: number }) => {
         updateBoardColors(row, col);
       });
     });
+    updateFilledCells();
   };
   return (
     <button

@@ -10,7 +10,7 @@ export const useStore = create<Store>((set) => ({
          newBoard[i][j] = {...newBoard[i][j], value: currentLetter};
         return { ...state, board: newBoard };
     }),
-    resetBoard: () => set(() => {return {board: new Array(5).fill(null).map(() => new Array(5).fill({color: 'black', value: ''})), currentLetter: "C", lines: 0}}),
+    resetBoard: () => set(() => {return {board: new Array(5).fill(null).map(() => new Array(5).fill({color: 'black', value: ''})), currentLetter: "C", lines: 0, filledCells: 0}}),
     updateBoardColors: (i,j) => set((state) => { 
         const newBoard = [...state.board];
         let color = 'black'
@@ -24,6 +24,8 @@ export const useStore = create<Store>((set) => ({
         newBoard[i][j] = {...newBoard[i][j], color: color};
         return { ...state, board: newBoard }; 
     }),
+    filledCells: 0,
+    updateFilledCells: () => set((state) => {return {filledCells: state.filledCells + 1}}),
     currentLetter: "C",
     updateCurrentLetter: (currentLetter) => set({ currentLetter }),
     lines: 0,

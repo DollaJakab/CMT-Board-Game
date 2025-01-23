@@ -17,5 +17,7 @@ export interface Store {
     updateBoardColors: (i: number, j: number) => void,
     lines: number,
     updateLines: (lines: number) => void,
-    resetBoard: () => void
+    resetBoard: () => void,
+    filledCells: number
+    updateFilledCells: () => void
 }

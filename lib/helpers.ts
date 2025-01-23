@@ -23,7 +23,7 @@ export const linesCalculator = (board: CellProps[][]) => {
     }
 
     function sequenceKey(sequence: number[][]): string {
-        return sequence.map(([r, c]) => `${r},${c}`).join("-");
+        return sequence.map(([r, c]) => `${r}-${c}`).join(",");
     }
 
     for (let i = 0; i < rows; i++) {
@@ -41,6 +41,7 @@ export const linesCalculator = (board: CellProps[][]) => {
             for (const [dRow, dCol] of directions) {
                 const sequence = collectSequence(i, j, dRow, dCol);
                 const key = sequenceKey(sequence);
+                
 
                 if (sequence.length >= 3 && !processedSequences.has(key)) {
                     results.push(sequence);
