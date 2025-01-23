@@ -1,33 +1,45 @@
 import { create } from 'zustand'
-import { Store } from './types'
-
-
+import { CellTypes, Store } from './types'
+import { linesCalculator } from './utils';
+import {boardRows, boardCols} from './constants';
 
 export const useStore = create<Store>((set) => ({
-    board: new Array(5).fill(null).map(() => new Array(5).fill({color: 'black', value: ''})),
-    updateBoard: (i, j, currentLetter) => set((state) => {
-        const newBoard = [...state.board];
-         newBoard[i][j] = {...newBoard[i][j], value: currentLetter};
-        return { ...state, board: newBoard };
-    }),
-    resetBoard: () => set(() => {return {board: new Array(5).fill(null).map(() => new Array(5).fill({color: 'black', value: ''})), currentLetter: "C", lines: 0, filledCells: 0}}),
-    updateBoardColors: (i,j) => set((state) => { 
-        const newBoard = [...state.board];
-        let color = 'black'
-        if (newBoard[i][j].value === "C") {
-            color = 'green'
-        }else if (newBoard[i][j].value === "M") {
-            color = 'blue'
-        }else if (newBoard[i][j].value === "T") {
-            color = 'red'
-        }
-        newBoard[i][j] = {...newBoard[i][j], color: color};
-        return { ...state, board: newBoard }; 
-    }),
+    board: new Array(boardRows).fill(null).map(() => new Array(boardCols).fill({color: 'black', value: undefined})),
     filledCells: 0,
-    updateFilledCells: () => set((state) => {return {filledCells: state.filledCells + 1}}),
-    currentLetter: "C",
-    updateCurrentLetter: (currentLetter) => set({ currentLetter }),
+    currentLetter: CellTypes.C,
     lines: 0,
-    updateLines: (lines) => set({ lines }),
+    resetBoard: () => set(() => {return {board: new Array(boardRows).fill(null).map(() => new Array(boardCols).fill({color: 'black', value: undefined})), currentLetter: CellTypes.C, lines: 0, filledCells: 0}}),
+    setCellValue: (row: number, col: number) => {
+        set((state) => {
+            const newState = { ...state };
+            //Update the board with the new value
+            const newBoard = [...newState.board];
+            const newValue = Object.values(CellTypes).find((value) => value === newState.currentLetter) as CellTypes;
+            newBoard[row][col] = {...newBoard[row][col], value: newValue};
+            newState.board = newBoard;
+            //Update the current letter
+            newState.currentLetter = Object.values(CellTypes)[(Object.keys(CellTypes).indexOf(newState.currentLetter) + 1) % 3];
+            //Check if there are any lines
+            const lines = linesCalculator(newState.board);
+            newState.lines = lines.length;
+            //Update the color of the cells in the line
+            lines.forEach((line) => {
+                line.forEach(([row, col]) => {
+                    let color = 'black';
+                    const currentCell = newBoard[row][col];
+                    if (currentCell.value === CellTypes.C) {
+                        color = 'green'
+                    }else if (currentCell.value === CellTypes.M) {
+                        color = 'blue'
+                    }else if (currentCell.value === CellTypes.T) {
+                        color = 'red'
+                    }
+                    newBoard[row][col] = {...currentCell, color: color};
+                            });
+            });
+            //Update the filled cells
+            newState.filledCells = newState.filledCells + 1;
+            return newState;
+        });
+    }
 }))

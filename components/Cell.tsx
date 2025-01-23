@@ -1,20 +1,20 @@
 import React from "react";
 import { CellProps } from "@/lib/types";
+import { useStore } from "@/lib/store";
 
 const Cell = ({
   cell,
   row,
   col,
-  setCellValue,
 }: {
   cell: CellProps;
   row: number;
   col: number;
-  setCellValue: (row: number, col: number) => void;
 }) => {
+  const setCellValue = useStore((state) => state.setCellValue);
   return (
     <button
-      disabled={cell?.value !== ""}
+      disabled={cell.value !== undefined}
       className={"bg-gray-200 h-20 w-20"}
       style={{ color: cell?.color }}
       onClick={() => setCellValue(row, col)}

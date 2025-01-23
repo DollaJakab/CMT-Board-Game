@@ -1,7 +1,6 @@
 "use client"
 
-import { CellProps } from "./types";
-
+import { CellProps, CellTypes } from "./types";
 
 export const linesCalculator = (board: CellProps[][]) => {
     const rows = board.length;
@@ -32,7 +31,7 @@ export const linesCalculator = (board: CellProps[][]) => {
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
             const letter = board[i][j].value;
-            if (letter === "") continue;
+            if (!letter) continue;
 
             const directions = [
                 [0, 1],
