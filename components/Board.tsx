@@ -1,19 +1,53 @@
 "use client";
 import { useStore } from "@/lib/store";
 import Cell from "./Cell";
-import { CellProps } from "@/lib/types";
+import { CellProps, CellTypes } from "@/lib/types";
+import { linesCalculator } from "@/lib/utils";
 
 const Board = () => {
+  //store values
   const board = useStore((state) => state.board);
   const lines = useStore((state) => state.lines);
-  const resetBoard = useStore((state) => state.resetBoard);
   const filledCells = useStore((state) => state.filledCells);
+  const currentLetter = useStore((state) => state.currentLetter);
+  const currentLetterIndex = Object.keys(CellTypes).indexOf(currentLetter);
+
+  //update functions
+  const updateBoard = useStore((state) => state.updateBoard);
+  const updateCurrentLetter = useStore((state) => state.updateCurrentLetter);
+  const updateLines = useStore((state) => state.updateLines);
+  const updateFilledCells = useStore((state) => state.updateFilledCells);
+  const updateBoardColors = useStore((state) => state.updateBoardColors);
+
+  const setCellValue = (row: number, col: number) => {
+    updateBoard(row, col, currentLetter);
+    updateCurrentLetter(CellTypes[(currentLetterIndex + 1) % 3]);
+    const lines = linesCalculator(board);
+    updateLines(lines.length);
+    lines.forEach((line) => {
+      line.forEach(([row, col]) => {
+        updateBoardColors(row, col);
+      });
+    });
+    updateFilledCells();
+  };
+
+  const resetBoard = useStore((state) => state.resetBoard);
   return (
     <div className="flex flex-col gap-1">
       {board.map((row: Array<CellProps>, i: number) => (
-        <div key={i} className="flex gap-1 items-center justify-center w-full">
+        <div
+          key={`row-${i}`}
+          className="flex gap-1 items-center justify-center w-full"
+        >
           {row.map((cell: CellProps, j: number) => (
-            <Cell key={j} cell={cell} i={i} j={j} />
+            <Cell
+              key={`col-${j}`}
+              cell={cell}
+              row={i}
+              col={j}
+              setCellValue={setCellValue}
+            />
           ))}
         </div>
       ))}

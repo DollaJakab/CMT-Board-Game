@@ -1,4 +1,7 @@
+"use client"
+
 import { CellProps } from "./types";
+
 
 export const linesCalculator = (board: CellProps[][]) => {
     const rows = board.length;
@@ -59,3 +62,4 @@ export const linesCalculator = (board: CellProps[][]) => {
     });
     return filteredResults;
 }
+
