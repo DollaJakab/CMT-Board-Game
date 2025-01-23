@@ -23,7 +23,7 @@ const ActionsTab = () => {
         </p>
       )}
       <button
-        className={`p-5 px-8 bg-gray-200 dark:bg-[#181818] ${filledCells === boardSize ? "hover:bg-green" : "hover:bg-red"} rounded-xl transition-all ease-in mb-8`}
+        className={`p-5 px-8 bg-gray-200 dark:bg-[#181818] ${filledCells === boardSize ? "hover:bg-green" : "hover:bg-red"} rounded-xl transition-all ease-in mb-8 `}
         onClick={resetBoard}
       >
         {filledCells === boardSize ? "Play again" : "Reset"}
