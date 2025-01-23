@@ -58,7 +58,7 @@ const Board = () => {
             : filledCells === 25 && "You have no lines, try again."}
         </p>
         <button
-          className={`p-5 px-8 bg-gray-200 dark:bg-[#181818] ${filledCells === 25 ? "hover:bg-green" : "hover:bg-red"} hover:bg-red rounded-xl transition-all ease-in`}
+          className={`p-5 px-8 bg-gray-200 dark:bg-[#181818] ${filledCells === 25 ? "hover:bg-green" : "hover:bg-red"} rounded-xl transition-all ease-in`}
           onClick={resetBoard}
         >
           {filledCells === 25 ? "Play again" : "Reset"}
