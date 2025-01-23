@@ -1,6 +1,6 @@
 "use client"
 
-import { CellProps, CellTypes } from "./types";
+import { CellProps } from "./types";
 
 export const linesCalculator = (board: CellProps[][]) => {
     const rows = board.length;
