@@ -14,7 +14,7 @@ const ActionsTab = () => {
   );
 
   return (
-    <div className="flex justify-between mt-5">
+    <div className="flex justify-center gap-5 mt-10">
       {filledCells === boardSize && (
         <p className="font-black pt-5">
           {lines > 0
@@ -23,7 +23,7 @@ const ActionsTab = () => {
         </p>
       )}
       <button
-        className={`p-5 px-8 bg-gray-200 dark:bg-[#181818] ml-auto ${filledCells === boardSize ? "hover:bg-green" : "hover:bg-red"} rounded-xl transition-all ease-in`}
+        className={`p-5 px-8 bg-gray-200 dark:bg-[#181818] ${filledCells === boardSize ? "hover:bg-green" : "hover:bg-red"} rounded-xl transition-all ease-in mb-8`}
         onClick={resetBoard}
       >
         {filledCells === boardSize ? "Play again" : "Reset"}

@@ -15,7 +15,7 @@ const Cell = ({
   return (
     <button
       disabled={cell.value !== undefined}
-      className={"bg-gray-200 h-20 w-20"}
+      className="cellStyle"
       style={{ color: cell?.color }}
       onClick={() => setCellValue(row, col)}
     >
