@@ -32,6 +32,7 @@ export const linesCalculator = (board: CellProps[][]) => {
         for (let j = 0; j < cols; j++) {
             const letter = board[i][j].value;
             if (!letter) continue;
+            console.log('letter', letter);
 
             const directions = [
                 [0, 1],
