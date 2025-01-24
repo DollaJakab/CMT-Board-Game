@@ -1,7 +1,6 @@
 import React from "react";
 import { CellProps } from "@/lib/types";
 import { useStore } from "@/lib/store";
-import { boardRows } from "@/lib/constants";
 
 const Cell = ({
   cell,
