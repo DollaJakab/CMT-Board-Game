@@ -8,7 +8,7 @@ const Board = () => {
   const board = useStore((state) => state.board);
   return (
     <div className=" flex flex-col justify-center items-center w-full h-full gap-5">
-      <div className="h-full w-full max-w-[80svw] md:max-w-[70svw] lg:max-w-[50svw] xl:max-w-[40svw] flex flex-col gap-1 items-center justify-center">
+      <div className="h-full w-full max-w-[75svw] md:max-w-[55svw] lg:max-w-[45svw] xl:max-w-[30svw] 2xl:[max-w-[20svw]] flex flex-col gap-1 items-center justify-center">
         {board.map((row: Array<CellProps>, i: number) => (
           <div
             key={`row-${i}`}

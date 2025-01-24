@@ -14,7 +14,7 @@ const ActionsTab = () => {
   );
 
   return (
-    <div className="flex justify-center gap-5 mt-10">
+    <div className="flex justify-center gap-5 mt-10 max-w-[70svw]">
       {filledCells === boardSize && (
         <p className="font-black pt-5">
           {lines > 0
